@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container,Form,TextArea,Button,Modal,Header,Icon } from 'semantic-ui-react'
+import { Container,Form,TextArea,Button,Modal,Header,Icon,Dimmer,Loader } from 'semantic-ui-react'
 
 function NoteForm() {
   const [textAreaControl, updateTextArea] = useState(localStorage.getItem('textDraft'));
   const [nameControl, updateName] = useState("");
   const [emailControl, updateEmail] = useState("");
   const [phoneControl, updatePhone] = useState("");
-
+  const [loader, toggleLoader] = useState(false);
+  const [loaderText, updateLoaderText] = useState('Sending...');
   const [modalOpen,toggleModal] = useState(false);
   useEffect(()=>{
     localStorage.setItem('textDraft',textAreaControl)
@@ -17,7 +18,12 @@ function NoteForm() {
       updateName("");
       updateEmail("");
       updatePhone("");
-      return toggleModal(false);
+      toggleLoader(true);
+      setTimeout(()=>{updateLoaderText('Finishing up...')},3000);
+      setTimeout(()=>{updateLoaderText('Sent!')},3000);
+      setTimeout(()=>{toggleLoader(false)},5000);
+      updateLoaderText('Sending...')
+      toggleModal(false);
     }
 
   return (
@@ -31,6 +37,11 @@ function NoteForm() {
     </Form.Group>
     <TextArea id='text-box' rows={20} value={textAreaControl} onChange={(e)=>updateTextArea(e.target.value)} placeholder='Spill your guts...' />
   </Form>
+  {loader &&
+    <Dimmer active>
+      <Loader size='massive'>{loaderText}</Loader>
+    </Dimmer>
+  }
   <Modal
   trigger={<Button onClick={()=>{toggleModal(true)}}>Send It...</Button>}
   closeIcon
