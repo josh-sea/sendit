@@ -1,0 +1,17 @@
+#text-box {
+  border: 0;
+  resize: vertical;
+  rows:100;
+}
+#text-box:focus {
+  outline: 0px solid transparent;
+}
+
+#text-box::-webkit-scrollbar { width: 0 !important }
+
+p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: white;
+  background-color: black;
+}
