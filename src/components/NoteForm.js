@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container,Form,TextArea,Button,Modal,Header,Icon,Dimmer,Loader } from 'semantic-ui-react'
 
 function NoteForm() {
-  const [textAreaControl, updateTextArea] = useState(localStorage.getItem('textDraft'));
+  const [textAreaControl, updateTextArea] = useState(localStorage.getItem('textDraft') || "");
   const [nameControl, updateName] = useState("");
   const [emailControl, updateEmail] = useState("");
   const [phoneControl, updatePhone] = useState("");
